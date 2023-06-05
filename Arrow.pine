@@ -1,0 +1,15 @@
+//@version=5
+indicator("Arrow Signal", overlay=true)
+
+// Define 10 EMA
+ema10 = ta.ema(close, 10)
+
+// Check if previous candle is red and previous candle low is above 10 EMA
+buySignalCondition = close[1] < open[1] and low[1] > ema10[1] and high > high[1]
+
+// Check if previous candle is green and previous candle high is below 10 EMA
+sellSignalCondition = close[1] > open[1] and high[1] < ema10[1] and low < low[1]
+
+// Plot buy and sell arrow shapes in next candle if signal conditions are true
+plotshape(buySignalCondition, title="Buy Arrow", style=shape.triangledown, location=location.abovebar, color=color.green, size=size.small)
+plotshape(sellSignalCondition, title="Sell Arrow", style=shape.triangledown, location=location.abovebar, color=color.red, size=size.small)
